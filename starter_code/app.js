@@ -5,9 +5,8 @@ const app = express();
 const path = require('path');
 const PunkAPIWrapper = require('punkapi-javascript-wrapper');
 const punkAPI = new PunkAPIWrapper();
+
 hbs.registerPartials(path.join(__dirname, '/views/partials'));
-
-
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '/views'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -19,12 +18,12 @@ app.get('/', (req, res, next) => {
 app.get('/beers', (req, res, next) => {
   punkAPI.getBeers()
     .then(beers => {
-      console.log(beers)
-      res.render('beers', beers);
+      console.log(beers);
+      res.render('beers', {beers});
     })
     .catch(error => {
       console.log(error);
     });
 });
 
-app.listen(3001, () => console.log('listening on port 3001!'));
+app.listen(3000, () => console.log('listening on port 3000!'));
